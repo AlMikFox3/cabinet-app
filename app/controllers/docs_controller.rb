@@ -1,51 +1,54 @@
 class DocsController < ApplicationController
-	before_action :find_doc, only: [:show, :destroy]
-	def index
-		@docs = Doc.all.order("created_at DESC")
-	end
 
-	def show
-	end
+  before_action :find_doc, only: [:show,:edit,:update,:destroy]
 
-	def new
-		@doc = current_user.docs.build
-	end
+  def index
+    @docs = Doc.where(user_id: current_user).order("created_at DESC")
 
-	def create
-		@doc = current_user.docs.build(doc_params)
-		if @doc.save
-			redirect_to @doc
-		else
-			render 'new'
-		end
-	end
+  end
 
-	def edit
-		@doc = Doc.find(params[:id])
-	end
+  def show
 
-	def update
-		@doc = Doc.find(params[:id])
-		if @doc.update(doc_params)
-			redirect_to @doc
-		else
-			render 'edit'
-		end
-	end
+  end
 
-	def destroy
-		@doc.destroy
-		redirect_to docs_path
-	end
+  def new
+    @doc = current_user.docs.build
+  end
 
-	private
+  def create
+    @doc = current_user.docs.build(doc_params)
+    if @doc.save
+      redirect_to @doc
+    else
+      render 'new'
+    end
+  end
 
-	def find_doc
-		@doc = Doc.find(params[:id])
-	end
+  def edit
 
-	def doc_params
-		params.require(:doc).permit(:title, :content)
-	end
+  end
+
+  def update
+    if @doc.update(doc_params)
+      redirect_to @doc
+    else
+      render 'edit'
+    end
+  end
+
+  def destroy
+    @doc.destroy
+    redirect_to docs_path
+  end
+
+  private
+
+    def find_doc
+      @doc = Doc.find(params[:id])
+    end
+
+    def doc_params
+      params.require(:doc).permit(:title,:content)
+    end
 
 end
