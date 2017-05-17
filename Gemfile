@@ -5,6 +5,13 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.5'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
+
+#Authentication
+gem 'devise', '~> 3.4.1'
+#generate easy to use forms
+gem 'simple_form', '~> 3.0.2'
+#replace erb with haml
+gem 'haml', '~> 4.0.5'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
